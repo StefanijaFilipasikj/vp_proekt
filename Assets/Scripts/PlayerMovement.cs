@@ -8,7 +8,8 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalInput;
     public float speed = 5;
     public float jumpingPower = 10;
-    private bool isFacingRight = true;
+    public Animator animator;
+    public bool isFacingRight = true;
     private Camera mainCamera;
     private float cameraWidth;
 
@@ -26,10 +27,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //move left and right
         horizontalInput = Input.GetAxisRaw("Horizontal"); //returns -1, 1 or 0, depending on the direction
-
-        if((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && IsGrounded())
+        animator.SetFloat("Speed", Math.Abs(horizontalInput));
+        //jump
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
@@ -39,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity =  new Vector2 (horizontalInput * speed, rb.velocity.y);
+        rb.velocity = new Vector2(horizontalInput * speed, rb.velocity.y);
         CheckIfOffScreen();
     }
 
@@ -48,15 +50,16 @@ public class PlayerMovement : MonoBehaviour
         if (isFacingRight && horizontalInput < 0 || !isFacingRight && horizontalInput > 0)
         {
             isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
+            /*Vector3 localScale = transform.localScale;
             localScale.x *= -1;
-            transform.localScale = localScale;
+            transform.localScale = localScale;*/
+            GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
         }
     }
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f , groundLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
     private void CalculateCameraWidth()
     {
