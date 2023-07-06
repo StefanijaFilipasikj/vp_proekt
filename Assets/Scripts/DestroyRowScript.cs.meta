@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 10be9fb0050d4874ebbff56c24b41ee7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Scene: {instanceID: 0}
+  - Forklift: {fileID: 3781723481002630700, guid: e1a982792a12db14f8e9fa712e8c598c, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

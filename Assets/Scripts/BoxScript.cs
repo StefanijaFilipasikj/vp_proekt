@@ -12,8 +12,8 @@ public class BoxScript : MonoBehaviour
     public int column;
     public int row;
     public Scene Scene;
-    [SerializeField] float moveSpeed = 0.1f;
-    private bool HasChecked = false;
+    public float moveSpeed = 0.1f;
+    public bool HasChecked = false;
     void Start()
     {
 
@@ -26,7 +26,6 @@ public class BoxScript : MonoBehaviour
             MoveToX();
         if (isDoneMovingX)
             MoveToY();
-
     }
 
     private void MoveToX()
@@ -43,6 +42,9 @@ public class BoxScript : MonoBehaviour
         if (transform.position.x == column + 0.5f)
         {
             isDoneMovingX = true;
+            Transform hook = transform.Find("HookSprite");
+            if (hook != null)
+                Destroy(hook.gameObject);
         }
 
     }

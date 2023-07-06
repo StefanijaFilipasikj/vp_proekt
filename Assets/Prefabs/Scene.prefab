@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8092217460449518592}
   - component: {fileID: 8092217460449518593}
+  - component: {fileID: 1193280453}
   m_Layer: 0
   m_Name: Scene
   m_TagString: Untagged
@@ -45,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   box: {fileID: 3884612329330122391, guid: ecebe16869c074f4b9d058a10088a643, type: 3}
-  numColumns: 15
+  numColumns: 19
   numRows: 7
   generateTime: 1
   Sprites:
@@ -53,3 +54,19 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a8e748d88743fcd4ca3402bb5f6fd36d, type: 3}
   - {fileID: 21300000, guid: c76ff2eebbddc11458b29b1e89616474, type: 3}
   - {fileID: 21300000, guid: 5f30c50d82a49d640a783669602a1964, type: 3}
+--- !u!114 &1193280453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8092217460449518718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10be9fb0050d4874ebbff56c24b41ee7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Scene: {fileID: 0}
+  Forklift: {fileID: 3781723481002630700, guid: e1a982792a12db14f8e9fa712e8c598c, type: 3}
+  boxes: []
+  IsDoneMoovingBoxes: 1

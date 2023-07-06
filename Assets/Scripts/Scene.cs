@@ -24,6 +24,34 @@ public class Scene : MonoBehaviour
             sides[i] = side;
             Boxes.Add(new List<GameObject>());
         }
+        GenerateLevel();
+    }
+
+    private void GenerateLevel()
+    {
+        int n = Random.Range(15, 25);
+        for (int i = 0; i < n; i++)
+        {
+            int column = GetColumn();
+            int row = Boxes[column].Count;
+            int side = sides[column];
+            int spriteNum = Random.Range(0, 4);
+            GameObject box1;
+            box1 = Instantiate(box, new Vector3(column + 0.5f, row + 0.5f, 0), Quaternion.identity);
+            BoxScript script = box1.GetComponent<BoxScript>();
+            //Initialize needed variables for the box
+            script.Scene = this;
+            box1.GetComponent<SpriteRenderer>().sprite = Sprites[spriteNum];
+            script.side = side;
+            script.column = column;
+            script.row = row;
+            script.isDoneMovingX = true;
+            script.isDoneMovingY = true;
+            script.HasChecked = true;
+            Boxes[column].Add(box1);
+            Destroy(box1.transform.Find("HookSprite").gameObject);
+        }
+        CheckIfFullRow(0);
     }
 
     // Update is called once per frame
@@ -61,12 +89,21 @@ public class Scene : MonoBehaviour
     }
     private void DestroyRow(int row)
     {
+        List<GameObject> BoxesToDestory = new List<GameObject>();
         for (int i = 0; i < numColumns; i++)
         {
-            Boxes[i][row].GetComponent<BoxScript>().Destroy();
+            Boxes[i][row].GetComponent<BoxScript>().enabled = false;
+            Boxes[i][row].layer = LayerMask.NameToLayer("DeadBox");
+            Boxes[i][row].GetComponent<BoxCollider2D>().isTrigger = true;
+            BoxesToDestory.Add(Boxes[i][row]);
+            Color color = Boxes[i][row].gameObject.GetComponent<SpriteRenderer>().color;
+            color.a = 0.5f;
+            Boxes[i][row].gameObject.GetComponent<SpriteRenderer>().color = color;
             FreeBlock(i, row);
         }
-
+        DestroyRowScript s = this.gameObject.AddComponent<DestroyRowScript>();
+        s.boxes = BoxesToDestory;
+        s.IsDoneMoovingBoxes = false;
     }
     private void GenerateBox()
     {
@@ -75,9 +112,9 @@ public class Scene : MonoBehaviour
         int spriteNum = Random.Range(0, 4);
         GameObject box1;
         if (side == 0)
-            box1 = Instantiate(box, new Vector3(-1, 9, 0), Quaternion.identity);
+            box1 = Instantiate(box, new Vector3(-1, numRows + 0.5f, 0), Quaternion.identity);
         else
-            box1 = Instantiate(box, new Vector3(22, 9, 0), Quaternion.identity);
+            box1 = Instantiate(box, new Vector3(22, numRows + 0.5f, 0), Quaternion.identity);
         BoxScript script = box1.GetComponent<BoxScript>();
         //Initialize needed variables for the box
         script.Scene = this;

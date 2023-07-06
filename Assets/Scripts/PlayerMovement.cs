@@ -50,9 +50,6 @@ public class PlayerMovement : MonoBehaviour
         if (isFacingRight && horizontalInput < 0 || !isFacingRight && horizontalInput > 0)
         {
             isFacingRight = !isFacingRight;
-            /*Vector3 localScale = transform.localScale;
-            localScale.x *= -1;
-            transform.localScale = localScale;*/
             GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
         }
     }

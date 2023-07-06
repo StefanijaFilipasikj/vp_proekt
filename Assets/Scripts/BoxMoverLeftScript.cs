@@ -27,7 +27,7 @@ public class BoxMoverLeftScript : MonoBehaviour
     //is only called once when the box enters the trigger
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!Colliders.Contains(other))
+        if (!Colliders.Contains(other) && other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             Colliders.Add(other);
         }
@@ -35,7 +35,7 @@ public class BoxMoverLeftScript : MonoBehaviour
     //is only called once when the box exits the trigger
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (Colliders.Contains(other))
+        if (Colliders.Contains(other) && other.gameObject.layer == LayerMask.NameToLayer("Ground"))
             Colliders.Remove(other);
     }
 }

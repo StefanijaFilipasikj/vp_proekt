@@ -19,13 +19,14 @@ public class BlockBreaker : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!PMScript.IsGrounded())
-        {
-            other.gameObject.GetComponent<BoxScript>().Destroy();
-        }
-        else
+        if (PMScript.IsGrounded() && other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             SceneManager.LoadScene("GameOverScene", LoadSceneMode.Single);
+
+        }
+        else if (!PMScript.IsGrounded() && other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            other.gameObject.GetComponent<BoxScript>().Destroy();
         }
     }
 }
