@@ -5,11 +5,10 @@ using UnityEngine;
 public class Scene : MonoBehaviour
 {
     private float time;
-    public int[] freeBlocks;
     private int[] sides;
     public List<List<GameObject>> Boxes;
     public GameObject box;
-    [SerializeField] int numColumns = 21;
+    public int numColumns = 21;
     [SerializeField] int numRows = 9;
     [SerializeField] float generateTime = 0.5f;
     [SerializeField] List<Sprite> Sprites = new List<Sprite>();
@@ -17,10 +16,7 @@ public class Scene : MonoBehaviour
     void Start()
     {
         time = 0;
-        freeBlocks = new int[numColumns];
         Boxes = new List<List<GameObject>>();
-        for (int i = 0; i < freeBlocks.Length; i++)
-            freeBlocks[i] = 0;
         sides = new int[numColumns];
         for (int i = 0; i < numColumns; i++)
         {
@@ -40,7 +36,7 @@ public class Scene : MonoBehaviour
             time = 0;
         }
     }
-
+    //Check if the row is full and destory the row if full
     public void CheckIfFullRow(int row)
     {
         bool f = true;
@@ -66,12 +62,16 @@ public class Scene : MonoBehaviour
     private void DestroyRow(int row)
     {
         for (int i = 0; i < numColumns; i++)
+        {
             Boxes[i][row].GetComponent<BoxScript>().Destroy();
+            FreeBlock(i, row);
+        }
+
     }
     private void GenerateBox()
     {
         int column = GetColumn();
-        int side = sides[column];
+        int side = sides[column]; // from which side the box is going to fall
         int spriteNum = Random.Range(0, 4);
         GameObject box1;
         if (side == 0)
@@ -79,25 +79,19 @@ public class Scene : MonoBehaviour
         else
             box1 = Instantiate(box, new Vector3(22, 9, 0), Quaternion.identity);
         BoxScript script = box1.GetComponent<BoxScript>();
+        //Initialize needed variables for the box
         script.Scene = this;
         box1.GetComponent<SpriteRenderer>().sprite = Sprites[spriteNum];
         script.side = side;
         script.column = column;
-        script.row = -1;
-        Boxes[column].Add(box1);
+        script.row = Boxes[column].Count;
     }
 
     private int GetColumn()
     {
         int col = Random.Range(0, numColumns);
-        col = GetNextFreeCol(col);
-        return col;
-    }
-
-    private int GetNextFreeCol(int col)
-    {
         int c = col;
-        while (freeBlocks[col] >= numRows)
+        while (Boxes[col].Count >= numRows) //get next free column if this column is full
         {
             col++;
             if (col == numColumns)
@@ -107,15 +101,11 @@ public class Scene : MonoBehaviour
         }
         return col;
     }
+    //Free a non mooving block and make the boxes on top of the block fall
     public void FreeBlock(int col, int row)
     {
-        freeBlocks[col]--;
         Boxes[col].RemoveAt(row);
         for (int i = row; i < Boxes[col].Count; i++)
             Boxes[col][i].GetComponent<BoxScript>().row--;
-    }
-    public int GetFreeRow(int col)
-    {
-        return freeBlocks[col];
     }
 }
