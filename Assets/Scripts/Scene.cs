@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Scene : MonoBehaviour
@@ -9,13 +10,19 @@ public class Scene : MonoBehaviour
     public List<List<GameObject>> Boxes;
     public GameObject box;
     public int numColumns = 21;
-    [SerializeField] int numRows = 9;
-    [SerializeField] float generateTime = 0.5f;
+    [SerializeField] int numRows = 7;
     [SerializeField] List<Sprite> Sprites = new List<Sprite>();
+    [SerializeField] GameObject PointsText;
+    [SerializeField] GameObject PowerUp;
+    public static int ChanceForBlack = 90;
+    public static int ChanceForPowerUp = 95;
+    public static int Points = 0;
+    public static float generateTime = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
         time = 0;
+        Points = 0;
         Boxes = new List<List<GameObject>>();
         sides = new int[numColumns];
         for (int i = 0; i < numColumns; i++)
@@ -30,6 +37,7 @@ public class Scene : MonoBehaviour
     private void GenerateLevel()
     {
         int n = Random.Range(15, 25);
+        GeneratePowerUp();
         for (int i = 0; i < n; i++)
         {
             int column = GetColumn();
@@ -54,6 +62,26 @@ public class Scene : MonoBehaviour
         CheckIfFullRow(0);
     }
 
+    private void GeneratePowerUp()
+    {
+        int column = GetColumn();
+        int side = sides[column]; // from which side the box is going to fall
+        int type = Random.Range(0, 3);
+        GameObject box1;
+        if (side == 0)
+            box1 = Instantiate(PowerUp, new Vector3(-1, numRows + 0.5f, 0), Quaternion.identity);
+        else
+            box1 = Instantiate(PowerUp, new Vector3(numColumns + 1, numRows + 0.5f, 0), Quaternion.identity);
+
+        //Initialize needed variables for the box
+        PowerUpScript script = box1.GetComponent<PowerUpScript>();
+        script.type = type;
+        script.SetSprite();
+        script.Scene = this;
+        script.side = side;
+        script.column = column;
+        script.row = Boxes[column].Count;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -63,6 +91,7 @@ public class Scene : MonoBehaviour
             GenerateBox();
             time = 0;
         }
+        PointsText.GetComponent<TextMeshProUGUI>().text = $"Points: {Points}";
     }
     //Check if the row is full and destory the row if full
     public void CheckIfFullRow(int row)
@@ -104,18 +133,37 @@ public class Scene : MonoBehaviour
         DestroyRowScript s = this.gameObject.AddComponent<DestroyRowScript>();
         s.boxes = BoxesToDestory;
         s.IsDoneMoovingBoxes = false;
+        Points += 100 * numColumns * 2;
     }
     private void GenerateBox()
     {
+        int rnd = Random.Range(0, 100);
         int column = GetColumn();
         int side = sides[column]; // from which side the box is going to fall
         int spriteNum = Random.Range(0, 4);
+        if (rnd > ChanceForBlack)
+            spriteNum = 4;
+        if (rnd > ChanceForPowerUp)
+        {
+            GeneratePowerUp();
+            return;
+        }
         GameObject box1;
         if (side == 0)
             box1 = Instantiate(box, new Vector3(-1, numRows + 0.5f, 0), Quaternion.identity);
         else
             box1 = Instantiate(box, new Vector3(22, numRows + 0.5f, 0), Quaternion.identity);
+
         BoxScript script = box1.GetComponent<BoxScript>();
+        if (spriteNum == 4)
+        {
+            script.IsBlack = true;
+            Color c = box1.GetComponent<SpriteRenderer>().color;
+            c.r = 0.0f;
+            c.g = 0.0f;
+            c.b = 0.0f;
+            box1.GetComponent<SpriteRenderer>().color = c;
+        }
         //Initialize needed variables for the box
         script.Scene = this;
         box1.GetComponent<SpriteRenderer>().sprite = Sprites[spriteNum];
@@ -128,7 +176,7 @@ public class Scene : MonoBehaviour
     {
         int col = Random.Range(0, numColumns);
         int c = col;
-        while (Boxes[col].Count >= numRows) //get next free column if this column is full
+        while (Boxes[col].Count > numRows) //get next free column if this column is full
         {
             col++;
             if (col == numColumns)

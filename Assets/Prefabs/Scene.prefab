@@ -54,6 +54,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a8e748d88743fcd4ca3402bb5f6fd36d, type: 3}
   - {fileID: 21300000, guid: c76ff2eebbddc11458b29b1e89616474, type: 3}
   - {fileID: 21300000, guid: 5f30c50d82a49d640a783669602a1964, type: 3}
+  - {fileID: 21300000, guid: f8ab8330c11aba34198600ae1aaccd99, type: 3}
+  PointsText: {fileID: 0}
+  PowerUp: {fileID: 3675970852404795606, guid: 27fece1d0fd57ae4db293b1c707cafa6, type: 3}
+  ChanceForBlack: 90
+  ChanceForPowerUp: 95
 --- !u!114 &1193280453
 MonoBehaviour:
   m_ObjectHideFlags: 0

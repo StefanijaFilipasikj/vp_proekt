@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,12 +13,13 @@ public class PlayerMovement : MonoBehaviour
     public bool isFacingRight = true;
     private Camera mainCamera;
     private float cameraWidth;
-
     //Refference to Rigidbody2d
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-
+    [SerializeField] Canvas Canvas;
+    private float GreenPotionTime;
+    private float BluePotionTime;
     private void Start()
     {
         mainCamera = Camera.main;
@@ -35,10 +37,58 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
+        if (BluePotionTime > 0)
+        {
+            BluePotionTime -= Time.deltaTime;
+            Canvas.transform.Find("TimeBluePotion").GetComponent<TextMeshProUGUI>().text = $"{(int)BluePotionTime}";
+            if (BluePotionTime <= 0)
+                DisableSpeedPowerUp();
+        }
+        if (GreenPotionTime > 0)
+        {
+            GreenPotionTime -= Time.deltaTime;
+            Canvas.transform.Find("TimeGreenPotion").GetComponent<TextMeshProUGUI>().text = $"{(int)GreenPotionTime}";
+            if (GreenPotionTime <= 0)
+                DisableJumpPowerUp();
+        }
 
         Flip();
     }
 
+    private void DisableSpeedPowerUp()
+    {
+        speed = 5;
+        transform.Find("SpeedParticleSystem").gameObject.SetActive(false);
+        Canvas.transform.Find("BluePotionImage").gameObject.SetActive(false);
+        Canvas.transform.Find("TimeBluePotion").gameObject.SetActive(false);
+    }
+
+    private void DisableJumpPowerUp()
+    {
+        jumpingPower = 12;
+        rb.gravityScale = 5;
+        transform.Find("JumpParticleSystem").gameObject.SetActive(false);
+        Canvas.transform.Find("GreenPotionImage").gameObject.SetActive(false);
+        Canvas.transform.Find("TimeGreenPotion").gameObject.SetActive(false);
+    }
+
+    public void EnableJumpPowerUp()
+    {
+        jumpingPower = 20;
+        rb.gravityScale = 7;
+        GreenPotionTime = 10f;
+        transform.Find("JumpParticleSystem").gameObject.SetActive(true);
+        Canvas.transform.Find("GreenPotionImage").gameObject.SetActive(true);
+        Canvas.transform.Find("TimeGreenPotion").gameObject.SetActive(true);
+    }
+    public void EnableSpeedPowerUp()
+    {
+        speed = 10;
+        BluePotionTime = 10f;
+        transform.Find("SpeedParticleSystem").gameObject.SetActive(true);
+        Canvas.transform.Find("BluePotionImage").gameObject.SetActive(true);
+        Canvas.transform.Find("TimeBluePotion").gameObject.SetActive(true);
+    }
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontalInput * speed, rb.velocity.y);

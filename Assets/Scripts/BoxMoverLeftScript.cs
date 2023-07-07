@@ -18,10 +18,15 @@ public class BoxMoverLeftScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (Collider2D c in Colliders)
+        for (int i = Colliders.Count - 1; i >= 0; i--)
             if (animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerMove"))
             {
-                c.gameObject.GetComponent<BoxScript>().Move(0);
+                if (Colliders[i].gameObject == null)
+                {
+                    Colliders.RemoveAt(i);
+                    continue;
+                }
+                Colliders[i].gameObject.GetComponent<BoxScript>().Move(0);
             }
     }
     //is only called once when the box enters the trigger

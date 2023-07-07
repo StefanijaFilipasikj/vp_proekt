@@ -24,7 +24,7 @@ public class BlockBreaker : MonoBehaviour
             SceneManager.LoadScene("GameOverScene", LoadSceneMode.Single);
 
         }
-        else if (!PMScript.IsGrounded() && other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        else if (!PMScript.IsGrounded() && other.gameObject.layer == LayerMask.NameToLayer("Ground") && !other.gameObject.GetComponent<BoxScript>().IsBlack)
         {
             other.gameObject.GetComponent<BoxScript>().Destroy();
         }
