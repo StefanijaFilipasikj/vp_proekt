@@ -41,10 +41,10 @@ public class ForkliftScript : MonoBehaviour
         for (int i = 0; i < Boxes.Count; i += 2)
         {
             Boxes[i].transform.position = Vector3.MoveTowards(Boxes[i].transform.position,
-                                            new Vector3(transform.position.x - 2, transform.position.y - 0.85f + i / 2, transform.position.z), move);
+                                            new Vector3(transform.position.x - 2, transform.position.y - 1.0f + i / 2, transform.position.z), move);
             if (i + 1 != Boxes.Count)
                 Boxes[i + 1].transform.position = Vector3.MoveTowards(Boxes[i + 1].transform.position,
-                                            new Vector3(transform.position.x - 2 - 1, transform.position.y - 0.85f + i / 2, transform.position.z), move);
+                                            new Vector3(transform.position.x - 2 - 1, transform.position.y - 1.0f + i / 2, transform.position.z), move);
         }
 
     }

@@ -61,6 +61,7 @@ public class BoxScript : MonoBehaviour
             if (!HasChecked) // add the box to the Scene and check if the row is full. This needs to be done only once
             {
                 Scene.Boxes[column].Add(this.gameObject);
+                Scene.CheckIfFullColumn(column);
                 Scene.CheckIfFullRow(row);
                 HasChecked = true;
             }

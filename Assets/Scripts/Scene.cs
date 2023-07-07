@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Scene : MonoBehaviour
 {
@@ -14,10 +15,10 @@ public class Scene : MonoBehaviour
     [SerializeField] List<Sprite> Sprites = new List<Sprite>();
     [SerializeField] GameObject PointsText;
     [SerializeField] GameObject PowerUp;
-    public static int ChanceForBlack = 90;
+    public static int ChanceForBlack = 95;
     public static int ChanceForPowerUp = 95;
     public static int Points = 0;
-    public static float generateTime = 0.5f;
+    public static float generateTime = 1.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -116,6 +117,13 @@ public class Scene : MonoBehaviour
             DestroyRow(row);
         }
     }
+    public void CheckIfFullColumn(int col)
+    {
+        if(Boxes[col].Count > numRows)
+        {
+            SceneManager.LoadScene("GameOverScene", LoadSceneMode.Single);
+        } 
+    }
     private void DestroyRow(int row)
     {
         List<GameObject> BoxesToDestory = new List<GameObject>();
@@ -158,11 +166,6 @@ public class Scene : MonoBehaviour
         if (spriteNum == 4)
         {
             script.IsBlack = true;
-            Color c = box1.GetComponent<SpriteRenderer>().color;
-            c.r = 0.0f;
-            c.g = 0.0f;
-            c.b = 0.0f;
-            box1.GetComponent<SpriteRenderer>().color = c;
         }
         //Initialize needed variables for the box
         script.Scene = this;
@@ -174,17 +177,7 @@ public class Scene : MonoBehaviour
 
     private int GetColumn()
     {
-        int col = Random.Range(0, numColumns);
-        int c = col;
-        while (Boxes[col].Count > numRows) //get next free column if this column is full
-        {
-            col++;
-            if (col == numColumns)
-                col = 0;
-            if (col == c)
-                return 0;
-        }
-        return col;
+        return Random.Range(0, numColumns);
     }
     //Free a non mooving block and make the boxes on top of the block fall
     public void FreeBlock(int col, int row)

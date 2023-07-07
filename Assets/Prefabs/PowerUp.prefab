@@ -275,8 +275,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 0.6906122, b: 0, a: 1}
-      maxColor: {r: 1, g: 0.28504565, b: 0, a: 1}
+      minColor: {r: 0.95294124, g: 0.19607845, b: 0.34901962, a: 1}
+      maxColor: {r: 0.57254905, g: 0.13333334, b: 0.14901961, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4872,7 +4872,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5000,12 +5000,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 387f1a257b3310649a8e782fc79a2986, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 34cd044e2189e5e409bb52cba6ea628e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.703125, y: 0.703125}
+  m_Size: {x: 3.79, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -5033,9 +5033,9 @@ MonoBehaviour:
   Scene: {fileID: 0}
   Player: {fileID: 6405074253836739663, guid: cd7e82890d4329547afd8ab946f73a63, type: 3}
   Sprites:
-  - {fileID: 21300000, guid: 387f1a257b3310649a8e782fc79a2986, type: 3}
-  - {fileID: 21300000, guid: 1469c13334f0f1e41b18280cd59e9366, type: 3}
-  - {fileID: 21300000, guid: 84faaadf127fc8e409f1f50adfd3e475, type: 3}
+  - {fileID: 21300000, guid: 34cd044e2189e5e409bb52cba6ea628e, type: 3}
+  - {fileID: 21300000, guid: dfcb4f05fbd2b994f8beb502ff85f4cf, type: 3}
+  - {fileID: 21300000, guid: c312a51fd67750d4baad0597f8b0491d, type: 3}
 --- !u!61 &3675970852404795601
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5053,8 +5053,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 0.703125, y: 0.703125}
+    oldSize: {x: 0.7402344, y: 1}
+    newSize: {x: 3.79, y: 5.12}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -5087,7 +5087,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4878441146768356888}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.026, y: 0.76, z: 0}
+  m_LocalPosition: {x: 0.002, y: 0.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
