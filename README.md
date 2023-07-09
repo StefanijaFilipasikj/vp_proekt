@@ -1,6 +1,6 @@
 # Stack Attack
 
-**[DOWNLOAD GAME HERE](https://mega.nz/file/cy90jKQT#dhJh2-3SNRYgObpouKo5IL1xlbDVBziJQGSmTKvssfg)**
+**[DOWNLOAD GAME HERE](https://mega.nz/file/M28RmSoI#__rgVo8TfhGOujjbZsRZ6jqqwFNzrM7jptVYJkleyxI)**
 
 **ЗАБЕЛЕШКА**: Кога се прегледува проектот во **Unity**, потребно е да се смени полето кај `Game` прозорецот од `Free Aspect` во `Full HD (1920x1080)` бидејќи играта е стриктно направена за таа резолуција.
 
@@ -17,16 +17,16 @@
   
 <img src="https://github.com/StefanijaFilipasikj/vp_proekt/assets/108759729/177ee95c-2a0a-476f-8590-02a65087650b" alt="StackAttack_Menu" width="700">
 <p>Слика 1</p>
-<img src="https://github.com/StefanijaFilipasikj/vp_proekt/assets/108759729/b0007c44-2c23-4bf9-9d79-895856e7c7ba" alt="StackAttack_Difficulty" width="700">
+<img src="https://github.com/StefanijaFilipasikj/vp_proekt/assets/127665193/d52199ee-b7f7-4a41-adc8-e1c34db609b9" alt="StackAttack_Difficulty" width="700">
 <p>Слика 2</p>
+</div>
 
- </div>
 
  - Играта започнува со неколку случајно поставени кутии (Слика 3). Кутиите се спуштаат од горниот дел на екранот и откако ќе стигнат до подот играчот ќе може да ги поместува налево или надесно. Има и една дополнителна црна кутија која не може да се поместува. Целта е да се направи целосно пополнет ред од кутии кои, слично како кај играта тетрис, ќе се уништи редот и со тоа играчот добива поени коишто се прикажани во горниот десен агол на прозорецот. 100 поени се добиваат со секоја скршена кутија, а 200 поени за секоја кутија ако се скрши цел ред.
 
 <div align = "center">
    
-<img src="https://github.com/StefanijaFilipasikj/vp_proekt/assets/108759729/d2595720-82b7-4e37-b0ea-8394b4c3807d" alt="StackAttack_Play" width="700">
+<img src="https://github.com/StefanijaFilipasikj/vp_proekt/assets/127665193/b6cff042-1d19-4b44-8ab6-25bac136c5f0" alt="StackAttack_Play" width="700">
 <p>Слика 3</p>
 
 </div>
@@ -57,7 +57,8 @@
 
 <div align="center">
 
-<img src="https://github.com/StefanijaFilipasikj/vp_proekt/assets/108759729/0bebb58a-3303-44ac-a274-56fdce06daf7" alt="StackAttack_GameOver" width="700">
+
+<img src="https://github.com/StefanijaFilipasikj/vp_proekt/assets/127665193/691ba186-7de3-4397-a129-02e541319cd1" alt="StackAttack_GameOver" width="700">
 <p>Слика 7</p>
 
 
