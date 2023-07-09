@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class DestroyRowScript : MonoBehaviour
 {
-    public Scene Scene;
-    public GameObject Forklift;
-    public List<GameObject> boxes = new List<GameObject>();
-    public bool IsDoneMoovingBoxes = true;
+    public GameObject Forklift; // reference to forklift prefab
+    public List<GameObject> boxes = new List<GameObject>(); // reference to the boxes needed to destroy
+    public bool IsDoneMoovingBoxes = true; // if animation is finished
     private GameObject ForkliftObj;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +20,7 @@ public class DestroyRowScript : MonoBehaviour
     void Update()
     {
         if (!IsDoneMoovingBoxes)
-            if (!Destroy())
+            if (!Destroy()) // if the boxes are done moving, spawn a forklift and destory the script
             {
                 IsDoneMoovingBoxes = true;
                 ForkliftObj = Instantiate(Forklift, new Vector3(22.5f, 0.6f, 0), Quaternion.identity);
@@ -28,6 +28,7 @@ public class DestroyRowScript : MonoBehaviour
             }
     }
 
+    //move all boxes to the row for pickup and return false if all boxes are moved
     public bool Destroy()
     {
         bool f = false;

@@ -11,48 +11,40 @@ public class BoxScript : MonoBehaviour
     public int side;
     public int column;
     public int row;
-    public Scene Scene;
+    public Scene Scene; // reference to the scene object
     public float moveSpeed = 0.1f;
-    public bool HasChecked = false;
+    public bool HasChecked = false; // has checked if row full
     public bool IsBlack = false;
-    void Start()
-    {
 
-    }
     // Update is called once per frame
     void Update()
     {
         //first move to the column, then to the row
         if (!isDoneMovingX)
-            MoveToX();
+            MoveToColumn();
         if (isDoneMovingX)
-            MoveToY();
+            MoveToRow();
     }
 
-    private void MoveToX()
+    private void MoveToColumn()
     {
         float move = moveSpeed * Time.deltaTime;
-        if (side == 0)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(column + 0.5f, transform.position.y, transform.position.z), move);
-        }
-        else if (side == 1)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(column + 0.5f, transform.position.y, transform.position.z), move);
-        }
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(column + 0.5f, transform.position.y, transform.position.z), move);
+        //if the box has reached the column
         if (transform.position.x == column + 0.5f)
         {
             isDoneMovingX = true;
-            Transform hook = transform.Find("HookSprite");
+            Transform hook = transform.Find("HookSprite"); // destroy the hook
             if (hook != null)
                 Destroy(hook.gameObject);
         }
 
     }
-    private void MoveToY()
+
+    private void MoveToRow()
     {
         float move = moveSpeed * Time.deltaTime;
-        if (!isDoneMovingY)
+        if (!isDoneMovingY) // while falling get the next free row
             row = Scene.Boxes[column].Count;
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, row + 0.5f, transform.position.z), move);
         if (transform.position.y == row + 0.5f)
@@ -67,6 +59,7 @@ public class BoxScript : MonoBehaviour
             }
         }
     }
+    //add points, free block from boxes matrix and destroy the box
     public void Destroy()
     {
         Scene.Points += 100;
@@ -74,10 +67,11 @@ public class BoxScript : MonoBehaviour
             Scene.FreeBlock(column, row);
         Destroy(this.gameObject);
     }
+
     //0-left, 1-right
     public void Move(int side)
     {
-        //Check if this is the top block of the column and if the block can move 
+        //Check if this is the top block of the column and if the block can move. Moving is done just by changing the column and boolean variables
         if (!IsBlack)
         {
             if (column != 0 && Scene.Boxes[column].Count - 1 == row && Scene.Boxes[column - 1].Count - 1 < row && side == 0)

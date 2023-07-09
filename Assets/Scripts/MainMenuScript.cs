@@ -11,28 +11,28 @@ using System.Runtime.Serialization;
 
 public class MainMenuScript : MonoBehaviour
 {
-    [SerializeField] GameObject TextField;
-    [SerializeField] GameObject LeaderBoard;
+    [SerializeField] GameObject TextField; // reference to the name inputfiled
+    [SerializeField] GameObject LeaderBoard; // reference to the leaderboard
+    [SerializeField] GameObject Points; // reference to final points
     public static List<Player> Players = new List<Player>();
-    public static Player ThisPlayer;
-    private static bool HasLoaded = false;
+    public static Player ThisPlayer; // current player
+    private static bool HasLoaded = false; // has loaded the players
     // Start is called before the first frame update
-    private void Awake()
+    private void Start()
     {
-        if (!HasLoaded)
+        if (!HasLoaded) // open the file containing players
         {
             OpenFile(Application.dataPath + "/save.savefile");
             HasLoaded = true;
         }
 
-        Transform obj = transform.Find("Points");
-        if (obj != null)
+        if (Points != null) // update game over points
         {
-            obj.gameObject.GetComponent<TextMeshProUGUI>().text = $"{ThisPlayer.Name} Points: {Scene.Points}";
+            Points.GetComponent<TextMeshProUGUI>().text = $"{ThisPlayer.Name} Points: {Scene.Points}";
             if (ThisPlayer.BestPoints < Scene.Points)
                 ThisPlayer.BestPoints = Scene.Points;
         }
-        if (obj != null)
+        if (LeaderBoard != null) // update leaderboard
         {
             StringBuilder sb = new StringBuilder();
             Players.Sort(new Comparison<Player>(ComparePlayer));
@@ -88,14 +88,14 @@ public class MainMenuScript : MonoBehaviour
         Scene.ChanceForPowerUp = 98;
         Scene.generateTime = 1;
     }
-
+    // for sorting players list
     private static int ComparePlayer(Player p1, Player p2)
     {
         return p2.BestPoints.CompareTo(p1.BestPoints);
     }
 }
 [Serializable]
-public class Player
+public class Player // for saving players
 {
     public int BestPoints { get; set; }
     public string Name { get; set; }

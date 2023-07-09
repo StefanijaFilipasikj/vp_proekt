@@ -378,6 +378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TextField: {fileID: 0}
   LeaderBoard: {fileID: 2071652082}
+  Points: {fileID: 220871137}
 --- !u!1 &310833576
 GameObject:
   m_ObjectHideFlags: 0

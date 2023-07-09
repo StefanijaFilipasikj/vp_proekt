@@ -6,7 +6,7 @@ public class PowerUpScript : MonoBehaviour
 {
     public bool isDoneMovingX = false;
     public bool isDoneMovingY = false;
-    public int type = 0;
+    public int type = 0; // 0-bomb, 1-green potion, 2-blue potion
     public int side;
     public int column;
     public int row;
@@ -15,10 +15,6 @@ public class PowerUpScript : MonoBehaviour
     public PlayerMovement Player;
     [SerializeField] List<Sprite> Sprites = new List<Sprite>();
     // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -31,14 +27,7 @@ public class PowerUpScript : MonoBehaviour
     private void MoveToX()
     {
         float move = moveSpeed * Time.deltaTime;
-        if (side == 0)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(column + 0.5f, transform.position.y, transform.position.z), move);
-        }
-        else if (side == 1)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(column + 0.5f, transform.position.y, transform.position.z), move);
-        }
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(column + 0.5f, transform.position.y, transform.position.z), move);
         if (transform.position.x == column + 0.5f)
         {
             isDoneMovingX = true;
@@ -48,6 +37,7 @@ public class PowerUpScript : MonoBehaviour
         }
 
     }
+    // set a sprite based on the type of power-up
     public void SetSprite()
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = Sprites[type];
@@ -67,6 +57,7 @@ public class PowerUpScript : MonoBehaviour
             isDoneMovingY = true;
         }
     }
+    // do an effect based on the type of power-up
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")

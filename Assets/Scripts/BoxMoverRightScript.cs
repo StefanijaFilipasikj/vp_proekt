@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class BoxMoverRightScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public GameObject Player;
-    private Animator animator;
+    public GameObject Player; // reference to the player
+    private Animator animator; // reference to the animator needed for animation
     private PlayerMovement playerScript;
     private List<Collider2D> Colliders = new List<Collider2D>(); // needed to be able to check all the boxes in the trigger
     void Start()
@@ -18,10 +17,15 @@ public class BoxMoverRightScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (Collider2D c in Colliders)
+        for (int i = Colliders.Count - 1; i >= 0; i--)
             if (animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerMove"))
             {
-                c.gameObject.GetComponent<BoxScript>().Move(1);
+                if (Colliders[i].gameObject == null) // if the box has been destroyed, remove it from the list 
+                {
+                    Colliders.RemoveAt(i);
+                    continue;
+                }
+                Colliders[i].gameObject.GetComponent<BoxScript>().Move(1);
             }
     }
     //is only called once when the box enters the trigger

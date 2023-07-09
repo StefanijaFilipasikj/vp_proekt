@@ -4,28 +4,22 @@ using UnityEngine;
 
 public class BombExploderScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public List<GameObject> Boxes = new List<GameObject>();
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    public List<GameObject> Boxes = new List<GameObject>(); // all objects in the trigger
+    //when a box enters the collider, add it to the list
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Box")
             Boxes.Add(other.gameObject);
     }
+    //when a box exits the collider, add it to the list
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.tag == "Box")
             Boxes.Remove(other.gameObject);
     }
+
+    //disable scripts, destroy boxes and play animation
     public void Explode()
     {
         transform.parent.GetComponent<SpriteRenderer>().enabled = false;

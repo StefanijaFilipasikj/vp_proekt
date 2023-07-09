@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class BoxMoverLeftScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public GameObject Player;
-    private Animator animator;
+    public GameObject Player; // reference to the player
+    private Animator animator; // reference to the animator needed for animation
     private PlayerMovement playerScript;
-    private List<Collider2D> Colliders = new List<Collider2D>();// needed to be able to check all the boxes in the trigger
+    private List<Collider2D> Colliders = new List<Collider2D>(); // all boxes in the trigger
     void Start()
     {
         animator = Player.GetComponent<Animator>();
@@ -21,7 +20,7 @@ public class BoxMoverLeftScript : MonoBehaviour
         for (int i = Colliders.Count - 1; i >= 0; i--)
             if (animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerMove"))
             {
-                if (Colliders[i].gameObject == null)
+                if (Colliders[i].gameObject == null) // if the box has been destroyed, remove it from the list 
                 {
                     Colliders.RemoveAt(i);
                     continue;
@@ -29,6 +28,7 @@ public class BoxMoverLeftScript : MonoBehaviour
                 Colliders[i].gameObject.GetComponent<BoxScript>().Move(0);
             }
     }
+
     //is only called once when the box enters the trigger
     private void OnTriggerEnter2D(Collider2D other)
     {

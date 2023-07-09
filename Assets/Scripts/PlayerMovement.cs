@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
+        //if blue potion is active
         if (BluePotionTime > 0)
         {
             BluePotionTime -= Time.deltaTime;
@@ -44,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
             if (BluePotionTime <= 0)
                 DisableSpeedPowerUp();
         }
+        //if green potion is active
         if (GreenPotionTime > 0)
         {
             GreenPotionTime -= Time.deltaTime;
@@ -51,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
             if (GreenPotionTime <= 0)
                 DisableJumpPowerUp();
         }
-
+        //flip the sprite
         Flip();
     }
 
